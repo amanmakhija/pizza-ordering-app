@@ -4,11 +4,9 @@ import {
     Injectable,
     NotFoundException,
 } from '@nestjs/common';
-import { JwtService } from '@nestjs/jwt';
+import { JwtService } from '../jwt/jwt.service';
 import { UserService } from '../user/user.service';
-import { RegisterUserDto } from '../../dtos/register.dto';
-import { UserDto } from '../../dtos/user.dto';
-import { LoginUserDto } from '../../dtos/login.dto';
+import { RegisterUserDto, UserDto, LoginUserDto } from '../../dtos/auth.dto';
 
 @Injectable()
 export class AuthService {
@@ -20,7 +18,7 @@ export class AuthService {
 
         const user = await this.userService.register(registerUserDto);
         const payload = { email: user.email, sub: user.id };
-        const access_token = this.jwtService.sign(payload);
+        const access_token = this.jwtService.signToken(payload);
 
         const userDto = new UserDto();
         userDto.user = user;
@@ -34,7 +32,7 @@ export class AuthService {
         if (!user) throw new NotFoundException('Invalid credentials');
 
         const payload = { email: user.email, sub: user.id };
-        const access_token = this.jwtService.sign(payload);
+        const access_token = this.jwtService.signToken(payload);
 
         const userDto = new UserDto();
         userDto.user = user;

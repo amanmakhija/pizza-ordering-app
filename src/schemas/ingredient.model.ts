@@ -12,7 +12,31 @@ export class Ingredient extends Model<Ingredient> {
 
     @Column({
         type: DataType.STRING,
-        allowNull: false
+        defaultValue: 'Ingredient',
     })
     name: string;
+
+    @Column({
+        type: DataType.STRING,
+        allowNull: false
+    })
+    image: string;
+
+    @Column({
+        type: DataType.INTEGER,
+        allowNull: false
+    })
+    price: number;
+
+    @Column({
+        type: DataType.DATE,
+        defaultValue: DataType.NOW,
+    })
+    createdAt: Date;
+
+    @Column({
+        type: DataType.DATE,
+        defaultValue: DataType.NOW,
+    })
+    updatedAt: Date;
 }

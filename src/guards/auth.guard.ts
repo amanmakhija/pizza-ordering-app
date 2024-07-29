@@ -4,7 +4,7 @@ import { AuthGuard } from '@nestjs/passport';
 import { Reflector } from '@nestjs/core';
 import { IncomingHttpHeaders } from 'http';
 import { Request } from 'express';
-import { JwtService } from '@nestjs/jwt';
+import { JwtService } from '../modules/jwt/jwt.service';
 import { UserService } from 'src/modules/user/user.service';
 
 @Injectable()
@@ -17,11 +17,14 @@ export class JwtAuthGuard extends AuthGuard('jwt') {
         const request = context.switchToHttp().getRequest<Request>();
         const token = this.extractTokenFromHeader(request);
         if (!token) return false;
-        
-        const decoded = this.jwtService.decode(token);
+
+        const decoded = this.jwtService.decodeToken(token);
+        if (!decoded) return false;
+
         const { dataValues } = await this.userService.findUserByEmail(decoded.email);
+        if (!dataValues) return false;
+
         request['user'] = dataValues;
-        
         return true;
     }
 

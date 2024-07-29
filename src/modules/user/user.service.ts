@@ -2,8 +2,7 @@
 import { Inject, Injectable } from '@nestjs/common';
 import * as bcrypt from 'bcrypt';
 import { User } from '../../schemas/user.model';
-import { LoginUserDto } from '../../dtos/login.dto';
-import { RegisterUserDto } from '../../dtos/register.dto';
+import { LoginUserDto, RegisterUserDto } from '../../dtos/auth.dto';
 
 @Injectable()
 export class UserService {
@@ -18,7 +17,7 @@ export class UserService {
         return this.userModel.create(registerUserDto);
     }
 
-    async findUserByEmail(email: string): Promise<User | null> {
+    findUserByEmail(email: string): Promise<User | null> {
         return this.userModel.findOne({ where: { email } });
     }
 
@@ -29,7 +28,7 @@ export class UserService {
         return null;
     }
 
-    async findUserById(id: number): Promise<User | null> {
+    findUserById(id: number): Promise<User | null> {
         return this.userModel.findByPk(id);
     }
 }
