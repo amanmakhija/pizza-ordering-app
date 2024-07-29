@@ -3,6 +3,7 @@ import { Sequelize } from 'sequelize-typescript';
 import { User } from '../../schemas/user.model';
 import { Order } from 'src/schemas/order.model';
 import { Ingredient } from 'src/schemas/ingredient.model';
+import { OrderIngredient } from 'src/schemas/order-ingredient.model';
 
 export const sequelizeProvider = [
     {
@@ -16,7 +17,7 @@ export const sequelizeProvider = [
                 password: process.env.DB_PASSWORD,
                 database: process.env.DB_NAME,
             });
-            sequelize.addModels([User, Order, Ingredient]);
+            sequelize.addModels([User, Order, Ingredient, OrderIngredient]);
             await sequelize.sync();
             return sequelize;
         },

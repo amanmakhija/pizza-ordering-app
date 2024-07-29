@@ -13,7 +13,7 @@ export class Order extends Model<Order> {
     id: number;
 
     @Column({
-        type: DataType.NUMBER,
+        type: DataType.INTEGER,
         allowNull: false
     })
     orderedBy: number;
