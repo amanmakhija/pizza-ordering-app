@@ -9,7 +9,6 @@ export class IngredientController {
     constructor(private readonly ingredientService: IngredientService) { }
 
     @Get()
-    @UseGuards(JwtAuthGuard)
     getIngredients() {
         return this.ingredientService.getAllIngredients()
     }
