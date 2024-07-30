@@ -5,6 +5,7 @@ import { Order } from 'src/schemas/order.model';
 import { Ingredient } from 'src/schemas/ingredient.model';
 import { OrderIngredient } from 'src/schemas/order-ingredient.model';
 import { Cart } from 'src/schemas/cart.model';
+import { CartIngredient } from 'src/schemas/cart-ingredient.model';
 
 export const sequelizeProvider = [
     {
@@ -18,7 +19,7 @@ export const sequelizeProvider = [
                 password: process.env.DB_PASSWORD,
                 database: process.env.DB_NAME,
             });
-            sequelize.addModels([User, Order, Ingredient, OrderIngredient, Cart]);
+            sequelize.addModels([User, Order, Ingredient, OrderIngredient, Cart, CartIngredient]);
             await sequelize.sync();
             return sequelize;
         },

@@ -20,6 +20,12 @@ export class Ingredient extends Model<Ingredient> {
         type: DataType.STRING,
         allowNull: false
     })
+    type: 'BREAD' | 'SAUCE' | 'VEGETABLE' | 'CHEESE' | 'MEAT' | 'SPICE';
+
+    @Column({
+        type: DataType.STRING,
+        allowNull: false
+    })
     image: string;
 
     @Column({

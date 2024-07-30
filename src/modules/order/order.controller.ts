@@ -35,7 +35,7 @@ export class OrderController {
     @Get(':id')
     @UseGuards(JwtAuthGuard)
     async getOrder(@Request() req): Promise<OrderDto | null> {
-        const orderDetails = await this.orderService.getOrder(req.params.id);
+        const { dataValues: orderDetails } = await this.orderService.getOrder(req.params.id);
 
         if (!orderDetails) throw new NotFoundException();
 
