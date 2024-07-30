@@ -24,6 +24,29 @@ export class Order extends Model<Order> {
     })
     orderedAt: Date;
 
+    @Column({
+        type: DataType.STRING,
+        defaultValue: 'PENDING',
+    })
+    status: 'PENDING' | 'CONFIRMED' | 'DELIVERED' | 'CANCELLED';
+
+    @Column({
+        type: DataType.DATE,
+    })
+    cancelledAt: Date;
+
+    @Column({
+        type: DataType.INTEGER,
+        allowNull: false,
+    })
+    total: number;
+
+    @Column({
+        type: DataType.STRING,
+        allowNull: false,
+    })
+    paymentMethod: 'COD' | 'CARD' | 'UPI';
+
     @BelongsToMany(() => Ingredient, () => OrderIngredient)
     ingredients: Ingredient[]
 }

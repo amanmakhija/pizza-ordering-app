@@ -7,6 +7,7 @@ import { OrderService } from "./order.service";
 import { OrderIngredient } from "src/schemas/order-ingredient.model";
 import { JwtModule } from "../jwt/jwt.module";
 import { UserModule } from "../user/user.module";
+import { Ingredient } from "src/schemas/ingredient.model";
 
 @Module({
     imports: [SequelizeModule, JwtModule, UserModule],
@@ -18,7 +19,11 @@ import { UserModule } from "../user/user.module";
         {
             provide: 'OrderIngredient_Repository',
             useValue: OrderIngredient,
-        }
+        },
+        {
+            provide: 'Ingredient_Repository',
+            useValue: Ingredient,
+        },
     ],
     controllers: [OrderController],
     exports: [OrderService],
