@@ -1,5 +1,5 @@
 /* eslint-disable prettier/prettier */
-import { Inject, Injectable } from "@nestjs/common";
+import { Inject, Injectable, NotAcceptableException } from "@nestjs/common";
 import { CartIngredient } from "src/schemas/cart-ingredient.model";
 import { Cart } from "src/schemas/cart.model";
 import { Ingredient } from "src/schemas/ingredient.model";
@@ -16,9 +16,15 @@ export class CartService {
         return await this.cartModel.findOne({ where: { userId: userID } });
     }
 
-    async createCartIngredients(cartId: number, ingredients: number[]): Promise<CartIngredient[]> {
-        const cartIngredients = ingredients.map((ingredient) => ({ cartId, ingredientId: ingredient }));
-        return await this.cartIngredientModel.bulkCreate(cartIngredients);
+    async removeCartIngredients(cartId: number, ingredientId: number): Promise<number> {
+        return await this.cartIngredientModel.destroy({ where: { cartId, ingredientId } });
+    }
+
+    async createCartIngredients(cartId: number, ingredientId: number): Promise<CartIngredient> {
+        const ingredientExists = await this.cartIngredientModel.findOne({ where: { cartId, ingredientId } });
+        if (ingredientExists) throw new NotAcceptableException('Ingredient already exists in cart');
+        const cartIngredient = await this.cartIngredientModel.create({ cartId, ingredientId });
+        return cartIngredient;
     }
 
     async getIngredientDetail(id: number): Promise<Ingredient | null> {

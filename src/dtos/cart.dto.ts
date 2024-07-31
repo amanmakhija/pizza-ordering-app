@@ -5,7 +5,7 @@ import { Ingredient } from "src/schemas/ingredient.model";
 
 export class CreateCartDto {
     @IsNotEmpty()
-    ingredients: number[];
+    ingredients: number;
 }
 
 export class CartDto {
@@ -14,4 +14,9 @@ export class CartDto {
 
     @IsNotEmpty()
     cart: Cart;
+}
+
+export class RemoveCartItemDto {
+    @IsNotEmpty()
+    ingredientId: number;
 }

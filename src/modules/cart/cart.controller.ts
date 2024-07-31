@@ -2,7 +2,7 @@
 import { Body, Controller, Delete, Get, NotFoundException, Post, Request, UnauthorizedException, UseGuards } from "@nestjs/common";
 import { CartService } from "./cart.service";
 import { JwtAuthGuard } from "src/guards/auth.guard";
-import { CartDto, CreateCartDto } from "src/dtos/cart.dto";
+import { CartDto, CreateCartDto, RemoveCartItemDto } from "src/dtos/cart.dto";
 
 @Controller('cart')
 export class CartController {
@@ -25,8 +25,30 @@ export class CartController {
         if (!cartDetails) throw new NotFoundException();
 
         if (cartDetails.userId !== req.user.id) throw new UnauthorizedException();
-        
-        const cartIngredients = await this.cartService.createCartIngredients(cartDetails.id, createCartDto.ingredients);
+
+        const cartIngredient = await this.cartService.createCartIngredients(cartDetails.id, createCartDto.ingredients);
+
+        const ingredient = await this.cartService.getIngredientDetail(cartIngredient.ingredientId);
+
+        const cart = new CartDto();
+        cart.cart = cartDetails;
+        cart.ingredients = [ingredient];
+
+        return cart;
+    }
+
+    @Post('remove')
+    @UseGuards(JwtAuthGuard)
+    async removeFromCart(@Request() req, @Body() removeCartItemDto: RemoveCartItemDto): Promise<CartDto> {
+        const { dataValues: cartDetails } = await this.cartService.getCart(req.user.id);
+
+        if (!cartDetails) throw new NotFoundException();
+
+        if (cartDetails.userId !== req.user.id) throw new UnauthorizedException();
+
+        await this.cartService.removeCartIngredients(cartDetails.id, removeCartItemDto.ingredientId);
+
+        const cartIngredients = await this.cartService.getCartIngredients(cartDetails.id);
 
         const ingredientsPromises = cartIngredients.map(async ({ dataValues }) => {
             const ingredient = await this.cartService.getIngredientDetail(dataValues.ingredientId);

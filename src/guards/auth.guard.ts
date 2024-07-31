@@ -21,10 +21,10 @@ export class JwtAuthGuard extends AuthGuard('jwt') {
         const decoded = this.jwtService.decodeToken(token);
         if (!decoded) return false;
 
-        const { dataValues } = await this.userService.findUserByEmail(decoded.email);
-        if (!dataValues) return false;
+        const user = await this.userService.findUserByEmail(decoded.email);
+        if (!user) return false;
 
-        request['user'] = dataValues;
+        request['user'] = user;
         return true;
     }
 
