@@ -29,6 +29,9 @@ export class RegisterUserDto {
 
     @IsString()
     readonly profilePicture?: string;
+
+    @IsString()
+    role?: 'user' | 'admin'
 }
 
 export class UserDto {

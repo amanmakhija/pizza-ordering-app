@@ -19,12 +19,6 @@ export class Cart extends Model<Cart> {
     userId: number;
 
     @Column({
-        type: DataType.INTEGER,
-        allowNull: false,
-    })
-    total: number;
-
-    @Column({
         type: DataType.DATE,
         defaultValue: DataType.NOW,
     })

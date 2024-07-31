@@ -8,8 +8,12 @@ import { Ingredient } from "src/schemas/ingredient.model";
 export class CartService {
     constructor(@Inject('Cart_Repository') private readonly cartModel: typeof Cart, @Inject('CartIngredient_Repository') private readonly cartIngredientModel: typeof CartIngredient, @Inject('Ingredient_Repository') private readonly ingredientModel: typeof Ingredient) { }
 
-    async createCart(userID: number, total: number): Promise<Cart> {
-        return await this.cartModel.create({ userId: userID, total });
+    async createCart(userID: number): Promise<Cart> {
+        return await this.cartModel.create({ userId: userID });
+    }
+
+    async getCart(userID: number): Promise<Cart | null> {
+        return await this.cartModel.findOne({ where: { userId: userID } });
     }
 
     async createCartIngredients(cartId: number, ingredients: number[]): Promise<CartIngredient[]> {
@@ -19,10 +23,6 @@ export class CartService {
 
     async getIngredientDetail(id: number): Promise<Ingredient | null> {
         return await this.ingredientModel.findOne({ where: { id } });
-    }
-
-    async getCart(cartId: number): Promise<Cart | null> {
-        return await this.cartModel.findOne({ where: { id: cartId } });
     }
 
     async getCartIngredients(cartId: number): Promise<CartIngredient[]> {

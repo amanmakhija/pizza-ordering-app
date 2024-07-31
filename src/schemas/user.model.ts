@@ -46,4 +46,10 @@ export class User extends Model<User> {
         defaultValue: DataType.NOW,
     })
     updatedAt: Date;
+
+    @Column({
+        type: DataType.STRING,
+        defaultValue: 'user',
+    })
+    role: 'user' | 'admin';
 }

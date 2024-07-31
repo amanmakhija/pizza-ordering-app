@@ -1,8 +1,8 @@
 /* eslint-disable prettier/prettier */
 import { Body, Controller, Get, Post, UseGuards } from "@nestjs/common";
 import { IngredientService } from "./ingredient.sevice";
-import { JwtAuthGuard } from "src/guards/auth.guard";
 import { CreateIngredientDto } from "src/dtos/ingredient.dto";
+import { RolesGuard } from "src/guards/role.guard";
 
 @Controller('ingredient')
 export class IngredientController {
@@ -14,7 +14,7 @@ export class IngredientController {
     }
 
     @Post()
-    @UseGuards(JwtAuthGuard)
+    @UseGuards(RolesGuard)
     postIngredient(@Body() createIngredientDto: CreateIngredientDto) {
         return this.ingredientService.createIngredient(createIngredientDto)
     }
