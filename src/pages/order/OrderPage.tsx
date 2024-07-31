@@ -60,7 +60,7 @@ const OrderP: React.FC = () => {
                     </ul>
                 </div>
             </div>
-            <button onClick={cancelBtn} className='cancel-btn'>Cancel</button>
+            {data.order.status !== 'CANCELLED' && <button onClick={cancelBtn} className='cancel-btn'>Cancel</button>}
         </div>
     );
 };
