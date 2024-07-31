@@ -10,7 +10,7 @@ type User = {
 export const register = async (values: User) => {
     try {
         const { name, email, password } = values
-        const response = await axios.post(process.env.REACT_APP_BACKEND_URL + "/register", {
+        const response = await axios.post("http://localhost:8000/auth/register", {
             name, email, password
         })
         return response.data

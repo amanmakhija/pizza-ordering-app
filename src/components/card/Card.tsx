@@ -9,7 +9,7 @@ type CardProps = {
 const Card: React.FC<CardProps> = ({ data }) => {
     return (
         <div className='card'>
-            <div className='card-thumbnail' style={{ backgroundImage: `url(${data.image})` }}></div>
+            <div className='card-thumbnail' style={{ backgroundImage: `url("%PUBLIC_URL%/assets/${data.image}")` }}></div>
             <div className='card-details'>
                 <h1>{data.name}</h1>
             </div>
