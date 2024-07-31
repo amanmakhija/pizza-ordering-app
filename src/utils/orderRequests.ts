@@ -1,5 +1,4 @@
-import axios from "axios"
-import { toast } from "react-toastify"
+import { axiosInstance } from "./axios.config"
 
 type Order = {
     ingredients: number[],
@@ -8,57 +7,21 @@ type Order = {
 }
 
 export const create = async (values: Order) => {
-    try {
-        const token = localStorage.getItem("token")
-        const response = await axios.post(process.env.REACT_APP_BACKEND_URL + "/order", values, {
-            headers: {
-                Authorization: `Bearer ${token}`
-            }
-        })
-        return response.data
-    } catch (error: any) {
-        toast.error(`${error.response.data.message} (${error.response.status})`);
-    }
+    const response = await axiosInstance.post("/order", values)
+    return response.data
 }
 
 export const getAll = async () => {
-    try {
-        const token = localStorage.getItem("token")
-        const response = await axios.get(process.env.REACT_APP_BACKEND_URL + "/order", {
-            headers: {
-                Authorization: `Bearer ${token}`
-            }
-        })
-        return response.data
-    } catch (error: any) {
-        toast.error(`${error.response.data.message} (${error.response.status})`);
-    }
+    const response = await axiosInstance.get("/order")
+    return response.data
 }
 
 export const get = async (id: number) => {
-    try {
-        const token = localStorage.getItem("token")
-        const response = await axios.get(process.env.REACT_APP_BACKEND_URL + "/order/" + id, {
-            headers: {
-                Authorization: `Bearer ${token}`
-            }
-        })
-        return response.data
-    } catch (error: any) {
-        toast.error(`${error.response.data.message} (${error.response.status})`);
-    }
+    const response = await axiosInstance.get("/order/" + id)
+    return response.data
 }
 
 export const cancel = async (id: number) => {
-    try {
-        const token = localStorage.getItem("token")
-        const response = await axios.put(process.env.REACT_APP_BACKEND_URL + "/order/" + id, {
-            headers: {
-                Authorization: `Bearer ${token}`
-            }
-        })
-        return response.data
-    } catch (error: any) {
-        toast.error(`${error.response.data.message} (${error.response.status})`);
-    }
+    const response = await axiosInstance.put("/order/" + id)
+    return response.data
 }

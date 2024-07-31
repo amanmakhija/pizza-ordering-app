@@ -1,5 +1,4 @@
-import axios from "axios"
-import { toast } from "react-toastify"
+import { axiosInstance } from "./axios.config";
 
 type Cart = {
     ingredients: number[],
@@ -10,74 +9,26 @@ type Ingredient = {
 }
 
 export const create = async (values: Cart) => {
-    try {
-        const token = localStorage.getItem("token")
-        const response = await axios.post(process.env.REACT_APP_BACKEND_URL + "/cart", values, {
-            headers: {
-                Authorization: `Bearer ${token}`
-            }
-        })
-        return response.data
-    } catch (error: any) {
-        toast.error(`${error.response.data.message} (${error.response.status})`);
-    }
+    const response = await axiosInstance.post("/cart", values)
+    return response.data
 }
 
 export const add = async (values: Cart) => {
-    console.log("🚀 ~ add ~ values:", values)
-    try {
-        const token = localStorage.getItem("token")
-        const response = await axios.post(process.env.REACT_APP_BACKEND_URL + "/cart/add", values, {
-            headers: {
-                Authorization: `Bearer ${token}`
-            }
-        })
-        toast.success('Added to cart');
-        return response.data
-    } catch (error: any) {
-        toast.error(`${error.response.data.message} (${error.response.status})`);
-    }
+    const response = await axiosInstance.post("/cart/add", values)
+    return response.data
 }
 
 export const get = async () => {
-    try {
-        const token = localStorage.getItem("token")
-        const response = await axios.get(process.env.REACT_APP_BACKEND_URL + "/cart", {
-            headers: {
-                Authorization: `Bearer ${token}`
-            }
-        })
-        return response.data
-    } catch (error: any) {
-        toast.error(`${error.response.data.message} (${error.response.status})`);
-    }
+    const response = await axiosInstance.get("/cart")
+    return response.data
 }
 
 export const remove = async (values: Ingredient) => {
-    try {
-        const token = localStorage.getItem("token")
-        const response = await axios.post(process.env.REACT_APP_BACKEND_URL + "/cart/remove", values, {
-            headers: {
-                Authorization: `Bearer ${token}`
-            }
-        })
-        toast.success('Removed from cart');
-        return response.data
-    } catch (error: any) {
-        toast.error(`${error.response.data.message} (${error.response.status})`);
-    }
+    const response = await axiosInstance.post("/cart/remove", values)
+    return response.data
 }
 
 export const checkout = async () => {
-    try {
-        const token = localStorage.getItem("token")
-        const response = await axios.delete(process.env.REACT_APP_BACKEND_URL + "/cart", {
-            headers: {
-                Authorization: `Bearer ${token}`
-            }
-        })
-        return response.data
-    } catch (error: any) {
-        toast.error(`${error.response.data.message} (${error.response.status})`);
-    }
+    const response = await axiosInstance.delete(process.env.REACT_APP_BACKEND_URL + "/cart")
+    return response.data
 }
