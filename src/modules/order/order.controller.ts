@@ -11,6 +11,7 @@ export class OrderController {
     @Post()
     @UseGuards(JwtAuthGuard)
     async createOrder(@Request() req, @Body() createOrderDto: CreateOrderDto): Promise<OrderDto> {
+        if (createOrderDto.ingredients.length === 0) throw new NotFoundException('No ingredients in cart');
         const { dataValues: orderData } = await this.orderService.createOrder(req.user.id, createOrderDto);
         const orderIngredients = await this.orderService.createOrderIngredients(orderData.id, createOrderDto.ingredients);
 

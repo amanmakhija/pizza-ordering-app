@@ -98,11 +98,10 @@ export class CartController {
 
         await this.cartService.getCartIngredients(cartDetails.id).then(async (cartIngredients) => {
             await Promise.all(cartIngredients.map(async ({ dataValues }) => {
-                await this.cartService.getIngredientDetail(dataValues.ingredientId).then(async (ingredient) => {
-                    await ingredient.destroy();
+                (await this.cartService.getCartIngredientDetail(dataValues.cartId)).map(async (cartIngredient) => {
+                    await cartIngredient.destroy();
                 });
-            })
-            )
+            }))
         });
 
         return { message: 'Cart Ingredients deleted successfully' };

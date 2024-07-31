@@ -31,6 +31,10 @@ export class CartService {
         return await this.ingredientModel.findOne({ where: { id } });
     }
 
+    async getCartIngredientDetail(cartId: number): Promise<CartIngredient[] | null> {
+        return await this.cartIngredientModel.findAll({ where: { cartId } });
+    }
+
     async getCartIngredients(cartId: number): Promise<CartIngredient[]> {
         return await this.cartIngredientModel.findAll({ where: { cartId } });
     }
