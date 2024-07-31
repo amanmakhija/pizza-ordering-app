@@ -22,7 +22,7 @@ const Navbar: React.FC = () => {
         <nav className='navbar'>
             <h1 onClick={() => navigate('/')} className='navbar-hero'>PizzaStore</h1>
             <div>
-                <div>
+                <div className={window.location.pathname !== '/' ? 'hidden' : ''}>
                     <input value={searchValue} onChange={(e) => setSearchValue(e.target.value)} type='text' placeholder='Search by Name / Ingredient' className='navbar-search' />
                     <button onClick={search} className='navbar-search-btn'><i className="fa-solid fa-magnifying-glass"></i></button>
                 </div>

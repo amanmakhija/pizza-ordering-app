@@ -1,0 +1,69 @@
+.order {
+    padding: 20vh 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10vh;
+    position: relative;
+}
+
+.cancel-btn {
+    top: 15vh;
+    right: 5vw;
+    background-color: #f44336;
+    border: none;
+    padding: 2vh 1vw;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    color: #f1f1f1;
+    position: absolute;
+}
+
+.cancel-btn:hover {
+    background-color: #d53e33;
+}
+
+.order-page {
+    padding: 20px;
+    max-width: 600px;
+    margin: auto;
+}
+
+.order-details {
+    border: 1px solid #ddd;
+    padding: 20px;
+    border-radius: 5px;
+}
+
+.order-details p {
+    margin: 10px 0;
+}
+
+.order-details ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.order-details ul li {
+    border-top: 1px solid #ddd;
+    padding: 10px 0;
+}
+
+.order-details ul li:first-child {
+    border-top: none;
+}
+
+.order-details button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.order-details button:hover {
+    background-color: #0056b3;
+}

@@ -18,8 +18,15 @@ export type Cart = {
 }
 
 export type Order = {
-    id?: number;
-    ingredients: Ingredient[];
-    total: number;
-    paymentMethod: 'COD' | 'CARD';
+    order: {
+        cancelledAt: string | null;
+        id?: number;
+        total: number;
+        paymentMethod: 'COD' | 'CARD' | 'UPI';
+        orderedAt: string;
+        status: 'PENDING' | 'CONFIRMED' | 'DELIVERED' | 'CANCELLED';
+    },
+    ingredients?: Ingredient[];
 }
+
+export type Orders = Order['order'][];

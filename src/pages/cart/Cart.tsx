@@ -1,7 +1,7 @@
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { checkout, get } from '../../utils/cartRequests';
 import './cart.css';
-import { Cart, Order } from '../../utils/type';
+import { Cart } from '../../utils/type';
 import { toast } from 'react-toastify';
 import Card from '../../components/cart-item/Card';
 import { create } from '../../utils/orderRequests';
