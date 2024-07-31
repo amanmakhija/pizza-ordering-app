@@ -6,6 +6,7 @@ import { useMutation } from "@tanstack/react-query";
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import { loginValidationSchema, registerValidationSchema } from "../../utils/validation";
 import './register.css'
+import { create } from "../../utils/cartRequests";
 
 type AuthUser = {
     name?: string;
@@ -25,13 +26,27 @@ const Register: React.FC = () => {
         }
     }, [navigate]);
 
+    const createCartMutation = useMutation({
+        mutationFn: create,
+        onSuccess: () => {
+            toast.success('Cart created');
+            navigate('/');
+        },
+        onError: (error: any) => {
+            toast.error(`${error.response.data.message} (${error.response.status})`);
+        },
+    });
+
     const registerMutation = useMutation({
         mutationFn: register,
         onSuccess: (data) => {
             localStorage.setItem('token', data.token);
             localStorage.setItem('user', JSON.stringify(data.user));
-            navigate('/');
+            createCartMutation.mutate({ ingredients: [] });
         },
+        onError: (error: any) => {
+            toast.error(`${error.response.data.message} (${error.response.status})`);
+        }
     });
 
     const loginMutation = useMutation({
@@ -41,6 +56,9 @@ const Register: React.FC = () => {
             localStorage.setItem('user', JSON.stringify(data.user));
             navigate('/');
         },
+        onError: (error: any) => {
+            toast.error(`${error.response.data.message} (${error.response.status})`);
+        }
     });
 
     const handleRegister = async (values: AuthUser) => {
@@ -89,7 +107,7 @@ const Register: React.FC = () => {
                         validationSchema={registerValidationSchema}
                         onSubmit={handleRegister}
                     >
-                        {({ setFieldValue }) => (
+                        {() => (
                             <Form className='form'>
                                 <div>
                                     <label htmlFor='name'>Name</label>

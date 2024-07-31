@@ -10,7 +10,7 @@ type User = {
 export const register = async (values: User) => {
     try {
         const { name, email, password } = values
-        const response = await axios.post("http://localhost:8000/auth/register", {
+        const response = await axios.post(process.env.REACT_APP_BACKEND_URL + "/auth/register", {
             name, email, password
         })
         return response.data
@@ -22,7 +22,8 @@ export const register = async (values: User) => {
 export const login = async (values: User) => {
     try {
         const { email, password } = values
-        const response = await axios.post(process.env.REACT_APP_BACKEND_URL + "/login", {
+        console.log("🚀 ~ login ~ process.env.REACT_APP_BACKEND_URL:", process.env.REACT_APP_BACKEND_URL)
+        const response = await axios.post(process.env.REACT_APP_BACKEND_URL + "/auth/login", {
             email, password
         })
         return response.data
