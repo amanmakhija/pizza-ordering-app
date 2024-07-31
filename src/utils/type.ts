@@ -12,3 +12,14 @@ export type Ingredient = {
     type: 'BREAD' | 'SAUCE' | 'VEGETABLE' | 'CHEESE' | 'MEAT' | 'SPICE';
     image: string;
 }
+
+export type Cart = {
+    ingredients: Ingredient[];
+}
+
+export type Order = {
+    id?: number;
+    ingredients: Ingredient[];
+    total: number;
+    paymentMethod: 'COD' | 'CARD';
+}

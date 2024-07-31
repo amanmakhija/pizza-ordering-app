@@ -5,6 +5,10 @@ type Cart = {
     ingredients: number[],
 }
 
+type Ingredient = {
+    ingredientId: number;
+}
+
 export const create = async (values: Cart) => {
     try {
         const token = localStorage.getItem("token")
@@ -49,7 +53,22 @@ export const get = async () => {
     }
 }
 
-export const remove = async () => {
+export const remove = async (values: Ingredient) => {
+    try {
+        const token = localStorage.getItem("token")
+        const response = await axios.post(process.env.REACT_APP_BACKEND_URL + "/cart/remove", values, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        })
+        toast.success('Removed from cart');
+        return response.data
+    } catch (error: any) {
+        toast.error(`${error.response.data.message} (${error.response.status})`);
+    }
+}
+
+export const checkout = async () => {
     try {
         const token = localStorage.getItem("token")
         const response = await axios.delete(process.env.REACT_APP_BACKEND_URL + "/cart", {

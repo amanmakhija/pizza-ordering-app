@@ -19,6 +19,8 @@ const Home: React.FC = () => {
         return <div>Error loading ingredients</div>;
     }
 
+    console.log(data);
+
     return (
         <div className='home'>
             {data && data.map((ingredient: Ingredient) => (
