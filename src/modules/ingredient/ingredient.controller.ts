@@ -1,5 +1,5 @@
 /* eslint-disable prettier/prettier */
-import { Body, Controller, Get, Post, UseGuards } from "@nestjs/common";
+import { Body, Controller, Get, Post, Query, UseGuards } from "@nestjs/common";
 import { IngredientService } from "./ingredient.sevice";
 import { CreateIngredientDto } from "src/dtos/ingredient.dto";
 import { RolesGuard } from "src/guards/role.guard";
@@ -9,8 +9,8 @@ export class IngredientController {
     constructor(private readonly ingredientService: IngredientService) { }
 
     @Get()
-    getIngredients() {
-        return this.ingredientService.getAllIngredients()
+    getIngredients(@Query() params) {
+        return this.ingredientService.getAllIngredients(params.query)
     }
 
     @Post()

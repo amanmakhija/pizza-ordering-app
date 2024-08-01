@@ -12,7 +12,8 @@ export class IngredientService {
         return await this.ingredientModel.create(createIngredientDto)
     }
 
-    getAllIngredients(): Promise<Ingredient[]> {
+    getAllIngredients(query: string): Promise<Ingredient[]> {
+        if (query) return this.ingredientModel.findAll({ where: { name: query } })
         return this.ingredientModel.findAll()
     }
 }
