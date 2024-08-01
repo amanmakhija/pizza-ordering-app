@@ -1,12 +1,11 @@
 import { axiosInstance } from "./axios.config"
 
-type Query = {
-    query: string
-}
-
 export const getAll = async () => {
     const query: string = window.location.pathname.split('search/')[1]
-    const params: Query = { query }
-    const response = await axiosInstance.get("/ingredient", { params })
+    console.log("🚀 ~ getAll ~ query:", query)
+    let response
+    if (!query) response = await axiosInstance.get('/ingredient')
+    else response = await axiosInstance.get(`/ingredient?query=${query}`)
+    console.log("🚀 ~ getAll ~ response:", response)
     return response.data
 }

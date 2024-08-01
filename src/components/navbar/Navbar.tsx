@@ -7,11 +7,13 @@ const Navbar: React.FC = () => {
     const navigate = useNavigate()
     const [user, setUser] = useState<User | null>(null)
     const [searchValue, setSearchValue] = useState(window.location.pathname.split('search/')[1] ? window.location.pathname.split('search/')[1] : '')
+    const [location, setLocation] = useState(window.location.pathname)
 
     useEffect(() => {
         const userDetails = localStorage.getItem('user')
         userDetails && setUser(JSON.parse(userDetails))
-    }, [])
+        setLocation(window.location.pathname)
+    })
 
     const search = (e: React.FormEvent) => {
         e.preventDefault()
@@ -22,7 +24,7 @@ const Navbar: React.FC = () => {
         <nav className='navbar'>
             <h1 onClick={() => navigate('/')} className='navbar-hero'>PizzaStore</h1>
             <div>
-                <div className=''>
+                <div className={(location === "/" || location.includes("search")) ? '' : 'hidden'}>
                     <input value={searchValue} onChange={(e) => setSearchValue(e.target.value)} type='text' placeholder='Search by Name / Ingredient' className='navbar-search' />
                     <button onClick={search} className='navbar-search-btn'><i className="fa-solid fa-magnifying-glass"></i></button>
                 </div>
