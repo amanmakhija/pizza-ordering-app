@@ -29,7 +29,7 @@ const Register: React.FC = () => {
     const createCartMutation = useMutation({
         mutationFn: create,
         onSuccess: () => {
-            toast.success('Cart created');
+            toast.success('Registered successfully');
             navigate('/');
         },
         onError: (error: any) => {
@@ -54,6 +54,7 @@ const Register: React.FC = () => {
         onSuccess: (data) => {
             localStorage.setItem('token', data.token);
             localStorage.setItem('user', JSON.stringify(data.user));
+            toast.success('Logged in successfully');
             navigate('/');
         },
         onError: (error: any) => {

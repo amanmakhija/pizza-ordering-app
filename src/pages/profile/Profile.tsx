@@ -32,8 +32,6 @@ export default function Profile() {
 
     if (!data) return <h1>No data available</h1>;
 
-    console.log(data);
-
     const userString = localStorage.getItem('user');
     const user = userString ? JSON.parse(userString) : null;
 
@@ -43,8 +41,6 @@ export default function Profile() {
         localStorage.removeItem('user');
         navigate('/');
     };
-
-    console.log(data);
 
     return (
         <>

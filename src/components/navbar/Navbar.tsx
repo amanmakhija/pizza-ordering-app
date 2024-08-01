@@ -6,7 +6,7 @@ import { User } from '../../utils/type';
 const Navbar: React.FC = () => {
     const navigate = useNavigate()
     const [user, setUser] = useState<User | null>(null)
-    const [searchValue, setSearchValue] = useState('')
+    const [searchValue, setSearchValue] = useState(window.location.pathname.split('search/')[1] ? window.location.pathname.split('search/')[1] : '')
 
     useEffect(() => {
         const userDetails = localStorage.getItem('user')
@@ -22,7 +22,7 @@ const Navbar: React.FC = () => {
         <nav className='navbar'>
             <h1 onClick={() => navigate('/')} className='navbar-hero'>PizzaStore</h1>
             <div>
-                <div className='hidden'>
+                <div className=''>
                     <input value={searchValue} onChange={(e) => setSearchValue(e.target.value)} type='text' placeholder='Search by Name / Ingredient' className='navbar-search' />
                     <button onClick={search} className='navbar-search-btn'><i className="fa-solid fa-magnifying-glass"></i></button>
                 </div>
