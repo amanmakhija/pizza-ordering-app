@@ -1,8 +1,7 @@
 import { axiosInstance } from "./axios.config"
 
 export const getAll = async () => {
-    const query: string = window.location.pathname.split('search/')[1]
-    console.log("🚀 ~ getAll ~ query:", query)
+    const query: string = window.location.search.split('=')[1]
     let response
     if (!query) response = await axiosInstance.get('/ingredient')
     else response = await axiosInstance.get(`/ingredient?query=${query}`)

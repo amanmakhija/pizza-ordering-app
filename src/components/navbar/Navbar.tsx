@@ -6,7 +6,7 @@ import { User } from '../../utils/type';
 const Navbar: React.FC = () => {
     const navigate = useNavigate()
     const [user, setUser] = useState<User | null>(null)
-    const [searchValue, setSearchValue] = useState(window.location.pathname.split('search/')[1] ? window.location.pathname.split('search/')[1] : '')
+    const [searchValue, setSearchValue] = useState(window.location.search.split('=')[1] || '')
     const [location, setLocation] = useState(window.location.pathname)
 
     useEffect(() => {
@@ -17,7 +17,7 @@ const Navbar: React.FC = () => {
 
     const search = (e: React.FormEvent) => {
         e.preventDefault()
-        navigate(`/search/${searchValue}`)
+        navigate(`/?query=${searchValue}`)
     }
 
     return (
